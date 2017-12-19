@@ -1,0 +1,13 @@
+/[Dd]ebug/
+/[Xx]64/
+/[Rr]yusGame5/[Dd]ebug/
+/[Rr]yusGame5/[Xx]64/
+/.vs/
+
+*.sln
+*.vcxproj
+*.filters
+*.user
+
+Log.txt
+
