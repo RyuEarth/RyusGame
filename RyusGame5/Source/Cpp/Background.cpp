@@ -27,4 +27,3 @@ void Background::Draw() {
 
 void Background::Finalize() {
 }
-
