@@ -3,6 +3,8 @@
 /[Rr]yusGame5/[Dd]ebug/
 /[Rr]yusGame5/[Xx]64/
 /.vs/
+/[Cc]onsoleTest/[Dd]ebug/
+/[Cc]onsoleTest/[Xx]64/
 
 *.sln
 *.vcxproj
