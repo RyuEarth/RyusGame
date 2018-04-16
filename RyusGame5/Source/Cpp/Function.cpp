@@ -27,13 +27,18 @@ void DrawAnimation(
 	const double angle) {
 	int width_x = (count / flame) % width;
 	DrawRotaGraph(vec.x, vec.y, exrate, angle, handle[muki*width + width_x], true);
+
 }
 //一瞬だけ呼び出される関数
 void FlashFunction() {
 
 }
 //イベントハンドラ（一応Velocity対応版予定）
+
 void EventHundler() {
+
+void CausingEvent2() {
+
 	//vel関数をどうよぼうか？
 	//思いつかん。
 	//真似てみる？本を真似てみようか。コマンドパターンなるものを使ってみる。
@@ -48,5 +53,5 @@ void OneVel(Entity* entity,Vector2 velocity) {
 }
 
 void MultiVel(Entity* entity, Vector2 velocity) {
-	
+
 }
