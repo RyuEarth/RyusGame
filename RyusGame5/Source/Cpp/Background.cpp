@@ -1,7 +1,7 @@
 #include "Background.h"
 #include "Define.h"
 #include "DxLib.h"
-
+#include <boost\bind.hpp>
 Background::Background() {
 	mImage[0] = LoadGraph("Image/back_screen1.png");
 	mBackground_Y = 0;

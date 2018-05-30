@@ -14,12 +14,11 @@
 
 
 BossShot::BossShot(Vector2 *vec,
-	const Vector2* playerVec,vector<Zako>* zako,int ShotKnd) {
+	const Vector2* playerVec,int ShotKnd) {
 
 	
 	mPlayerVec = playerVec;
 	mvBullet = new vector<Bullet>;
-	mvZako = zako;
 	mVec = new Vector2;
 	mVec = vec;
 	mKnd = ShotKnd;
@@ -89,7 +88,6 @@ void BossShot::enterPattern00(){
 		}
 		(*mvBullet)[i].mCount++;
 	}
-	
 }
 void BossShot::enterPattern01() {
 	int count = mCount % 120;

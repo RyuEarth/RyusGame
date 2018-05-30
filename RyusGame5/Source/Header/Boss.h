@@ -2,6 +2,9 @@
 #define INCLUDED_BOSS_H
 
 #include "Enemy.h"//Enemy.hでStructをinclude済み
+#include "DxLib.h"
+#include "Vector2.h"
+#include "Image.h"
 #include <vector>
 using namespace std;
 
@@ -13,15 +16,11 @@ class Boss{
 public:
 	Boss(Vector2*, vector<Zako>*, int knd);//playerのベクター,雑魚
 	~Boss();
-
 	void Initialize();
 	void Process();
 	void Draw();
 	void Finalize();
-
 	const t_enemy_order* pZako_data;
-
-
 	const int *mImage;
 	double x, y, sp;
 	//描画フラグ
@@ -44,7 +43,10 @@ public:
 	Vector2* Get_vector() {//現在のベクターを返す
 		return mVec;
 	}
-
+	virtual void ShotKnd() = 0;//ショットの種類をオーバーライドする必要がある
+	virtual void DrawCharactor() = 0;//ボスの描画の種類をオーバーライドする必要がある
+	virtual void AnimationTips() = 0;//ボスのアニメーション遷移
+	
 private:
 	/*
 	クラス内でenumを宣言してもcpp内で使えない(switchなど)
@@ -65,14 +67,11 @@ private:
 	void createShot(int ShotKnd);
 	void enterShot();
 	void calcShot();
-
+protected:
 	BossActPattern* pBossActPattern;
-
 	PlayerShot* pPlayerShot;
-
 	Vector2* mPlayerVec;
 	Vector2* mVec;
-
 	int mCount_motion;
 	int mMuki;
 	int mActKnd;

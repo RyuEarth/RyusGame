@@ -11,10 +11,7 @@
 #include <vector>
 using namespace std;
 
-
-
 Boss::Boss(Vector2* vec,vector<Zako>* zako,int knd) {
-
 	mPlayerVec = vec;
 	mMuki = 0;
 	mTip_width = 0;
@@ -32,36 +29,32 @@ Boss::Boss(Vector2* vec,vector<Zako>* zako,int knd) {
 	mHp = 30;
 	pBossActPattern = 0;
 	mVec = new Vector2(SCREEN_X_HALF+20,-100);
-	
 	mvBossShot = new vector<BossShot>;
-
 	pBossActPattern = new BossActPattern(this);
 	if (!pBossActPattern) {
 		printfDx("alocate error!");
 		DxLib_End();
 	}
 }
+
 Boss::~Boss() {
 }
+
 
 void Boss::Initialize() {
 }
 
-
 void Boss::createShot(int ShotKnd) {
-	(*mvBossShot).push_back(BossShot(mVec, mPlayerVec, mvZako,ShotKnd));
+	(*mvBossShot).push_back(BossShot(mVec, mPlayerVec,ShotKnd));
 }
 void Boss::enterShot() {
 	//ショットをどれだけ確保するかをきめる
-
 	if (mShotFlag==1) {
-		createShot(0);
-		createShot(2);
-		createShot(1);
+		ShotKnd();
 		mShotFlag = 2;
 	}
-	
-	//ここではどのようなショットをにするか（組み合わせなど）をきめる　
+	//ここではどのようなショットをにするか（組み合わせなど）をきめる
+
 
 	/*
 	if (mHp < 0) {
@@ -74,7 +67,6 @@ void Boss::enterShot() {
 	}
 	}
 	*/
-	
 }
 
 void Boss::calcShot() {
@@ -102,11 +94,7 @@ void Boss::calcShot() {
 		}
 		printfDx("test_sizeOfBossShot:%d\n", (*mvBossShot).size());
 	}
-	
 	mShotCount++;//ショットが始まってからの時間
-	
-
-	
 }
 void Boss::calcEnterMove() {
 	if (mEnterMoveFlag > 0) {
@@ -120,14 +108,9 @@ void Boss::calcEnterMove() {
 	}
 }
 void Boss::Process() {
-
-
-	mCount_motion = mCount % 560;//560に意味はない。intがオーバーフローを起こさないようにするため。
-	mTip_x = static_cast<int>(mCount_motion / 8) % 5;
-
+	AnimationTips();
 	calcEnterMove();
 	pBossActPattern->process();
-
 	/*
 	左右のボスのチップができたら実装するかも
 	if (pBossActPattern->mVx < -1) {
@@ -140,22 +123,16 @@ void Boss::Process() {
 	mMuki = 1;
 	}
 	*/
-		
 	enterShot();//ショットオブジェクトの生成と登録
-	
 	calcShot();
 	mCount++;
-	
 }
 void Boss::Draw() {
-	if (mFlag) {
-		DrawRotaGraph(mVec->x, mVec->y, 1.0, 0.0, (Image::Instance()->getKaranChip()[mMuki*mTip_width + mTip_x]), true);
-	}
+	DrawCharactor();
 	int i;
 	for (i = 0; i < (*mvBossShot).size(); i++) {
 		(*mvBossShot)[i].draw();
 	}
-
 }
 void Boss::Finalize() {
 }
