@@ -1,0 +1,92 @@
+// ConsoleTest.cpp : Defines the entry point for the console application.
+//
+#include "stdafx.h"
+#include "ConsoleTest.h"
+#include "Windows.h"
+#include <iostream>
+#include <string>
+#include <list>
+using namespace std;
+class Hoge;
+class Base {
+public:
+	Base() {
+		Initialize();
+	}
+	Base(Base* pointer) {
+		Initialize(pointer);
+	}
+	void Initialize() {
+		GetTypename();
+	}
+	void Initialize(Base* pointer) {
+		GetTypename(pointer);
+		pointer->display_not_virtual();
+		(*pointer).display_not_virtual();
+	}
+	string type_name;
+	void GetTypename() {
+		type_name = typeid(this).name();
+	}
+	void GetTypename(Base* pointer) {
+		type_name = typeid(*pointer).name();
+	}
+	virtual void display() {
+		cout << "This is Base Class" << endl;
+	}
+	void display_not_virtual() {
+		cout << "This is Base Class Not virtual" << endl;
+	}
+};
+
+class Hoge :public Base{
+public:
+	Hoge(){
+		Initialize(this);
+	}
+	virtual void display() {
+		cout << "This is Hoge Class" << endl;
+	}
+	void display_not_virtual() {
+		cout << "This is Hoge Class Not virtual" << endl;
+	}
+};
+
+void FlameCount() {
+	flameCount++;
+}
+
+void FlameDisplay() {
+	cout << "FlameCount:" << flameCount << endl;
+}
+
+void FlameProcess() {
+	FlameDisplay();
+	FlameCount();
+	Sleep(SEC_PER_FLAME * 1000);
+}
+
+void MainLoop() {
+	int flag = 1;
+	int count = 0;
+	while (flag) {
+		FlameProcess();
+		//ˆÈ‰º‚Éˆ—‚ð‘‚¢‚Ä‚¢‚­
+	}
+}
+
+
+void OneFlame() {
+	Base base;
+	Hoge hoge;
+	cout << "Base: " << base.type_name<<endl;
+	cout << "Hoge: " << hoge.type_name << endl;
+	system("pause");
+	return;
+}
+int main()
+{
+	OneFlame();
+	return 0;
+}
+

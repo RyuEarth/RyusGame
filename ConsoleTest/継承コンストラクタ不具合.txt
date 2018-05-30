@@ -1,0 +1,69 @@
+// ConsoleTest.cpp : Defines the entry point for the console application.
+//なぜか、継承コンストラクタの引数にthisをいれると、基底クラス（仮想クラス）のコンストラクタにその引数を渡したときにポインタも実体もアップキャストされてしまう。
+#include "stdafx.h"
+#include "ConsoleTest.h"
+#include "Windows.h"
+#include <iostream>
+#include <string>
+#include <list>
+using namespace std;
+class Hoge;
+class Base {
+public:
+	Base(Base* pointer) {
+		type_name = typeid(*pointer).name();
+		cout << type_name << endl;//Baseとでてしまう
+	}
+	string type_name;
+	void GetTypename(Base* pointer) {
+		type_name = typeid(*pointer).name();
+		cout << type_name << endl;//正常にHogeとでる
+	}
+	virtual void display() {
+		cout << "This is Base Class" << endl;
+	}
+};
+
+class Hoge :public Base{
+public:
+	Hoge() :Base(this) { GetTypename(this); }
+	virtual void display() {
+		cout << "This is Hoge Class" << endl;
+	}
+};
+
+void FlameCount() {
+	flameCount++;
+}
+
+void FlameDisplay() {
+	cout << "FlameCount:" << flameCount << endl;
+}
+
+void FlameProcess() {
+	FlameDisplay();
+	FlameCount();
+	Sleep(SEC_PER_FLAME * 1000);
+}
+
+void MainLoop() {
+	int flag = 1;
+	int count = 0;
+	while (flag) {
+		FlameProcess();
+		//以下に処理を書いていく
+	}
+}
+
+
+void OneFlame() {
+	Hoge hoge;
+
+	system("pause");
+	return;
+}
+int main()
+{
+	OneFlame();
+	return 0;
+}
